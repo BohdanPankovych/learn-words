@@ -1,8 +1,10 @@
 import { combineReducers, createStore } from "redux";
 import dictionaryReducer from "./dictionary/dictionaryReducer";
+import modalReducer from './modal/modalReducer';
 
 const rootReducer = combineReducers({
   dictionary: dictionaryReducer,
+  modal: modalReducer,
 });
 
 const store = createStore(

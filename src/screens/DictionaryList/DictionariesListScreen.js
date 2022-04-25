@@ -1,6 +1,6 @@
 import { StyleSheet, FlatList, Button } from 'react-native';
 import { View } from '../../components/Themed';
-import ListItem from './ListItem';
+import ListItemContainer from '../containers/ListItemContainer';
 
 const styles = StyleSheet.create({
     container: {
@@ -14,15 +14,13 @@ const styles = StyleSheet.create({
     },
   });
 
-  const tmpArr = [1,2,3,4,5,6,7,8,9,10];
-
 export default function DictionariesListScreen({ navigation, dictionaries }) {
-    const renderItem = ({ item }) => (
-        <ListItem title={item} />
+    const renderItem = ({ item, ...props }) => (
+        <ListItemContainer title = {item} {...props} />
       );
   return (
     <View style={styles.container}>
-        <FlatList data={dictionaries}  renderItem={renderItem}/>
+        <FlatList data={dictionaries}  renderItem={renderItem} keyExtractor={item => item}/>
     </View>
   );
 }

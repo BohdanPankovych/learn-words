@@ -1,13 +1,8 @@
-/**
- * If you are not familiar with React Navigation, refer to the "Fundamentals" guide:
- * https://reactnavigation.org/docs/getting-started
- *
- */
+import * as React from 'react';
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import * as React from 'react';
 import { ColorSchemeName, Pressable } from 'react-native';
 
 import Colors from '../data/constants/Colors';
@@ -18,6 +13,8 @@ import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import DictionaryListContainer from '../screens/containers/DictionaryListContainer';
 import LinkingConfiguration from './LinkingConfiguration';
+
+import AddItemDialogContainer from '../components/modal/container/AddItemDialogContainer';
 
 export default function Navigation({ colorScheme, createDictionary }) {
   return (
@@ -55,6 +52,15 @@ const BottomTab = createBottomTabNavigator();
 
 function BottomTabNavigator(createDictionary) {
   const colorScheme = useColorScheme();
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = React.useCallback(() =>{
+    setOpen(true);
+  }, [])
+
+  const handleSubmit = React.useCallback(() =>{
+    setOpen(false);
+  }, [])
 
   return (
     <BottomTab.Navigator
@@ -70,7 +76,7 @@ function BottomTabNavigator(createDictionary) {
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Pressable
-              onPress={() => createDictionary()}
+              onPress={handleClose}
               style={({ pressed }) => ({
                 opacity: pressed ? 0.5 : 1,
               })}>
@@ -80,6 +86,7 @@ function BottomTabNavigator(createDictionary) {
                 color={Colors[colorScheme].text}
                 style={{ marginRight: 15 }}
               />
+              <AddItemDialogContainer open={open} onClose={setOpen} submit={handleSubmit}/>
             </Pressable>
           ),
         })}
@@ -91,20 +98,6 @@ function BottomTabNavigator(createDictionary) {
         options={({ navigation }) => ({
           title: 'Tab One',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <FontAwesome
-                name="info-circle"
-                size={20}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
         })}
       />
       <BottomTab.Screen

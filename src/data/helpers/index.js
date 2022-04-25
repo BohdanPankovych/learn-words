@@ -28,7 +28,5 @@ export const redirectToHttps = () => {
       location.href = 'https:' + location.href.substring(location.protocol.length);
 }
 
-export const priceStr = (amount) => `￥${Number(amount).toLocaleString("ja-JP-u-ca-japanese")}`;
-
 
 

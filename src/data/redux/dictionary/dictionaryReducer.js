@@ -9,6 +9,9 @@ const dictionaryReducer = (state = defaultState, action) => {
   switch (action.type) {
     case dictionaryActionTypes.CREATE_DICTIONARY:
       return state.update("dictionary", dictionary => [...dictionary, 10]);
+    
+    case dictionaryActionTypes.DELETE_DICTIONARY:
+      return state.update("dictionary", dictionary => dictionary.filter(val => val != action.payload.id));
 
     default:
       return state;
