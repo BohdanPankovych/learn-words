@@ -16,26 +16,15 @@ import LinkingConfiguration from './LinkingConfiguration';
 
 import AddItemDialogContainer from '../components/modal/container/AddItemDialogContainer';
 
-export default function Navigation({ colorScheme, createDictionary }) {
-  return (
-    <NavigationContainer
-      linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <RootNavigator createDictionary={createDictionary} />
-    </NavigationContainer>
-  );
-}
+import WordListScreen from '../screens/WordListScreen/WordListScreen';
 
-/**
- * A root stack navigator is often used for displaying modals on top of all other content.
- * https://reactnavigation.org/docs/modal
- */
 const Stack = createNativeStackNavigator();
 
-function RootNavigator({createDictionary}) {
+export default function RootNavigator({createDictionary}) {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Root" component={()=>BottomTabNavigator(createDictionary)} options={{ headerShown: false }} />
+      <Stack.Screen name="WordList" component={WordListScreen}/>
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
@@ -82,7 +71,7 @@ function BottomTabNavigator(createDictionary) {
               })}>
               <FontAwesome
                 name="plus"
-                size={25}
+                size={30}
                 color={Colors[colorScheme].text}
                 style={{ marginRight: 15 }}
               />
@@ -97,14 +86,14 @@ function BottomTabNavigator(createDictionary) {
         component={TabOneScreen}
         options={({ navigation }) => ({
           title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         })}
       />
       <BottomTab.Screen
         name="TabTwo"
         component={TabTwoScreen}
         options={{
-          title: 'Tab Twa',
+          title: 'Tab Two',
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />

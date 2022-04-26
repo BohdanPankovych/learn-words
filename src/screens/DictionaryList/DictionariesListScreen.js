@@ -1,22 +1,19 @@
-import { StyleSheet, FlatList, Button } from 'react-native';
+import { StyleSheet, FlatList, Pressable } from 'react-native';
 import { View } from '../../components/Themed';
-import ListItemContainer from '../containers/ListItemContainer';
+import ListItem from '../../components/List/ListItem';
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: 'center',
     },
-    separator: {
-      marginVertical: 30,
-      height: 1,
-      width: '80%',
-    },
   });
 
 export default function DictionariesListScreen({ navigation, dictionaries }) {
     const renderItem = ({ item, ...props }) => (
-        <ListItemContainer title = {item} {...props} />
+      <Pressable onPress={() => navigation.navigate("WordList")}>
+        <ListItem id={item} firstSection={item} secondSection={item} {...props} />
+      </Pressable>
       );
   return (
     <View style={styles.container}>

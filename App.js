@@ -3,7 +3,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import useCachedResources from './src/data/hooks/useCachedResources';
 import useColorScheme from './src/data/hooks/useColorScheme';
-import NavigationContainer from './src/navigation/containers/NavigationContainer';
+import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import RootContainer from './src/navigation/containers/RootContainer';
 import {Provider as ReduxProvider} from 'react-redux';
 import store from './src/data/redux/store'
 
@@ -17,8 +18,11 @@ export default function App() {
     return (
       <ReduxProvider store={store}>
         <SafeAreaProvider>
-          <NavigationContainer colorScheme={colorScheme} />
-          <StatusBar />
+        <NavigationContainer
+          theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+            <RootContainer/>
+            <StatusBar />
+          </NavigationContainer>
         </SafeAreaProvider>
       </ReduxProvider>
     );

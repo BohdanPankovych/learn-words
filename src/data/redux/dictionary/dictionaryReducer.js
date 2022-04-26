@@ -2,7 +2,7 @@ import Immutable from "immutable";
 import dictionaryActionTypes from "./dictionaryActionTypes";
 
 const defaultState = new Immutable.OrderedMap({
-  dictionary: [1,2,3,4,5],
+  dictionary: ["English", "German", "Polish"],
 });
 
 const dictionaryReducer = (state = defaultState, action) => {
