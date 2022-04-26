@@ -12,12 +12,12 @@ const styles = StyleSheet.create({
 export default function DictionariesListScreen({ navigation, dictionaries }) {
     const renderItem = ({ item, ...props }) => (
       <Pressable onPress={() => navigation.navigate("WordList")}>
-        <ListItem id={item} firstSection={item} secondSection={item} {...props} />
+        <ListItem id={item.id} firstSection={item.dictionaryName} secondSection={`Words: ${item.wordCount}`} {...props} />
       </Pressable>
       );
   return (
     <View style={styles.container}>
-        <FlatList data={dictionaries}  renderItem={renderItem} keyExtractor={item => item}/>
+        <FlatList data={dictionaries}  renderItem={renderItem} keyExtractor={item => item.id}/>
     </View>
   );
 }
