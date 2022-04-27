@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, FlatList, Pressable } from 'react-native';
 import { View } from '../../components/Themed';
 import ListItem from '../../components/List/ListItem';
-import WordsMock from '../../data/mock/WordsMock';
+import { germanMock, englishMock } from '../../data/mock/WordsMock';
 
 const styles = StyleSheet.create({
     container: {
@@ -11,13 +11,13 @@ const styles = StyleSheet.create({
     },
   });
 
-const WordListScreen = ({navigation}) => {
+const WordListScreen = ({navigation, route}) => {
     const renderItem = ({ item, ...props }) => (
           <ListItem id={item.id} firstSection={item.wordName} secondSection={item.wordTranslate} {...props} />
-        );
+    );
     return (
       <View style={styles.container}>
-          <FlatList data={WordsMock}  renderItem={renderItem} keyExtractor={item => item.id}/>
+          <FlatList data={route.params.id ? germanMock : englishMock }  renderItem={renderItem} keyExtractor={item => item.id}/>
       </View>
     );
 }

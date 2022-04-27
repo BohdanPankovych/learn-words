@@ -1,5 +1,10 @@
 import dictionaryActionTypes from './dictionaryActionTypes'
 
+export const setDictionaries = (dictionaries) => ({
+  type: dictionaryActionTypes.SET_DICTIONARIES,
+  payload: { dictionaries },
+})
+
 export const createDictionary = (dictionary) => ({
     type: dictionaryActionTypes.CREATE_DICTIONARY,
     payload: { dictionary },

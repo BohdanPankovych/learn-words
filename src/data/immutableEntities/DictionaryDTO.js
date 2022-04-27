@@ -1,7 +1,9 @@
 import Immutable from "immutable"
+import "react-native-get-random-values";
+import * as uuid from 'uuid';
 
 const DictionaryDTO = new Immutable.Record({
-    id: "",
+    id: uuid.v4(),
     dictionaryName: "",
     wordCount: 0
 })

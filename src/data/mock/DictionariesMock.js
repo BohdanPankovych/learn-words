@@ -1,16 +1,16 @@
 const mock = [
     {
-        id: 1,
+        id: 0,
         dictionaryName: "English",
         wordCount: 20
     },
     {
-        id: 2,
+        id: 1,
         dictionaryName: "German",
         wordCount: 34
     },
     {
-        id: 3,
+        id: 2,
         dictionaryName: "Polish",
         wordCount: 12
     }

@@ -14,11 +14,10 @@ const AddItemDialog = ({
                         setWordName,
                         setWordTranslate
                       }) => {
+    const { wordName, wordTranslate } = word || {};
     const handleClose = React.useCallback(() =>{
         onClose(false);
     }, [onClose])
-
-    const { wordName, wordTranslate } = word || {};
 
     return (
         <Modal
