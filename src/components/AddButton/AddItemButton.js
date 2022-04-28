@@ -7,9 +7,11 @@ import Colors from '../../data/constants/Colors';
 import useColorScheme from '../../data/hooks/useColorScheme';
 import DictionariesMock from '../../data/mock/DictionariesMock';
 
-const AddItemButton = ({dictionaries, dictionary, createDictionary, resetReducer, ...props}) => {
+const AddItemButton = ({dictionaries, dictionary, createDictionary, resetReducer, id, ...props}) => {
     const colorScheme = useColorScheme();
     const [open, setOpen] = React.useState(false);
+
+    console.log("Word", id)
 
     const handleClose = React.useCallback(() =>{
         setOpen(true);

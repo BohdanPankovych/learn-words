@@ -10,14 +10,14 @@ import AddItemContainer from '../components/AddButton/containers/AddItemContaine
 
 const Stack = createNativeStackNavigator();
 
-export default function RootNavigator({createDictionary}) {
+export default function RootNavigator() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Root" component={()=>BottomTabNavigator(createDictionary)} options={{ headerShown: false }} />
+      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="WordList" component={WordListScreen} 
-      options={({ navigation }) => ({
+      options={({ navigation, route }) => ({
           title: 'Words',
-          headerRight: () => (<AddItemContainer isWordAdd/>),
+          headerRight: () => (<AddItemContainer id={route.params.id} isWordAdd/>),
         })}/>
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>

@@ -11,7 +11,7 @@ import AddItemContainer from '../components/AddButton/containers/AddItemContaine
 
 const BottomTab = createBottomTabNavigator();
 
-export default function BottomTabNavigator(params) {
+export default function BottomTabNavigator({...params}) {
   const colorScheme = useColorScheme();
 
   return (
@@ -33,7 +33,7 @@ export default function BottomTabNavigator(params) {
         name="TabOne"
         component={TabOneScreen}
         options={({ navigation }) => ({
-          title: 'Tab One',
+          title: 'Learn',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         })}
       />
@@ -41,7 +41,7 @@ export default function BottomTabNavigator(params) {
         name="TabTwo"
         component={TabTwoScreen}
         options={{
-          title: 'Tab Two',
+          title: 'Statistics',
           tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
         }}
       />

@@ -17,8 +17,13 @@ const readFile = async (path) => {
     return JSON.parse((await FileSystem.readAsStringAsync(path)));
 };
 
+const deleteFile = async (path) =>{
+    await FileSystem.deleteAsync(path);
+}
+
 const appDAO = {
     makeDirectory,
+    deleteFile,
     makeFile,
     readFile
 }

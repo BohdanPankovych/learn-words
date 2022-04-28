@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, FlatList, Pressable } from 'react-native';
 import { View } from '../../components/Themed';
-import ListItem from '../../components/List/ListItem';
+import ListWordItem from './ListWordItem';
 import { germanMock, englishMock } from '../../data/mock/WordsMock';
+import appService from '../../storage/appService';
 
 const styles = StyleSheet.create({
     container: {
@@ -13,8 +14,20 @@ const styles = StyleSheet.create({
 
 const WordListScreen = ({navigation, route}) => {
     const renderItem = ({ item, ...props }) => (
-          <ListItem id={item.id} firstSection={item.wordName} secondSection={item.wordTranslate} {...props} />
+          <ListWordItem id={item.id} firstSection={item.wordName} secondSection={item.wordTranslate} isDeleteWord {...props} />
     );
+
+    const getWords = () =>{
+      appService.getWordsList(route.params.id)
+      .then((res)=>{
+        console.log(res);
+      }).catch(err => console.error(err))
+    }
+
+    React.useEffect(() =>{
+      getWords();
+    }, [])
+
     return (
       <View style={styles.container}>
           <FlatList data={route.params.id ? germanMock : englishMock }  renderItem={renderItem} keyExtractor={item => item.id}/>

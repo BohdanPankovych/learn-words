@@ -2,8 +2,6 @@ import React from 'react';
 import { StyleSheet, Pressable } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import ConfirmDialog from '../modal/ConfirmDialog';
-import { useSelector } from 'react-redux';
-import appService from '../../storage/appService';
 
 const styles = StyleSheet.create({
     title: {
@@ -34,18 +32,13 @@ const styles = StyleSheet.create({
   });
 
 
-const ListItem = ({id, firstSection, secondSection, onDelete}) => {
+const ListItem = ({firstSection, secondSection, onDelete, isDeleteWord=false}) => {
     const [open, setOpen] = React.useState(false);
-    const dicitionaries = useSelector(state => state.dictionary.get("dictionary"));
 
-    const handleDelete = React.useCallback(() => {
-        onDelete(id)
-        console.log(dicitionaries.filter(val => val.id != id))
-        appService.updateDictionaryList(dicitionaries.filter(val => val.id != id))
-        .then(() => console.log("delete"))
-        .catch((err) => console.error(err))
-        .finally(() => setOpen(false))
-    }, [onDelete, dicitionaries])
+    const handleDelete = React.useCallback(() =>{
+      onDelete()
+      setOpen(false);
+    }, [])
 
     const handleOpen = React.useCallback(() =>{
       setOpen(true);
@@ -64,7 +57,7 @@ const ListItem = ({id, firstSection, secondSection, onDelete}) => {
                 <Text style={styles.textStyle}>Delete</Text>
                 </Pressable>
             </View>
-            <ConfirmDialog open={open} handleClose={handleClose} handleSubmit={handleDelete}/>
+            <ConfirmDialog open={open} handleClose={handleClose} handleSubmit={handleDelete} isDeleteWord={isDeleteWord}/>
         </View>
     )
 }
