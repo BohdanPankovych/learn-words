@@ -5,7 +5,7 @@ import AddItemDialog from '../AddItemDialog';
 
 const mapStateToProps = state => ({
     word: state.modal.get("word"),
-    dictionary: state.modal.get("dictionary")
+    dictionary: state.modal.getIn(["dictionary", "dictionaryName"])
 });
 const mapDispatchToProps = {
     ...modalActions

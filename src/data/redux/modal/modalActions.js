@@ -20,11 +20,16 @@ export const addWord = (word) => ({
     payload: { word }
 })
 
+export const resetReducer = () => ({
+    type: modalActionTypes.RESET_REDUCER
+})
+
 const ModalActionTypes = {
     setDictionaryName,
     setWordName,
     setWordTranslate,
-    addWord
+    addWord,
+    resetReducer
 }
 
 export default ModalActionTypes;

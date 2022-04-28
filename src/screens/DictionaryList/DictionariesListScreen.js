@@ -22,7 +22,9 @@ export default function DictionariesListScreen({ navigation, setDictionaries, de
   
   const getDictionaries = () => {
     appService.getDictionariesList()
-    .then((res) => setDictionaries(JSON.parse(res)))
+    .then((res) => {
+      setDictionaries(res)
+    })
     .catch(err => console.error(err))
   }
 

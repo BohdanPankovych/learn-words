@@ -6,7 +6,7 @@ const makeDirectory = async (folderPath) => {
 
 const makeFile = async (filePath, content) => {
     try {
-      await FileSystem.writeAsStringAsync(filePath, content);
+      await FileSystem.writeAsStringAsync(filePath, JSON.stringify(content));
       console.log("written to file");
     } catch (error) { 
       console.log(error);
@@ -14,7 +14,7 @@ const makeFile = async (filePath, content) => {
 };
 
 const readFile = async (path) => {
-    return await FileSystem.readAsStringAsync(path);
+    return JSON.parse((await FileSystem.readAsStringAsync(path)));
 };
 
 const appDAO = {

@@ -7,7 +7,7 @@ import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import DictionaryListContainer from '../screens/containers/DictionaryListContainer';
 
-import AddItemButton from '../components/AddButton/AddItemButton';
+import AddItemContainer from '../components/AddButton/containers/AddItemContainer';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -25,8 +25,8 @@ export default function BottomTabNavigator(params) {
         component={DictionaryListContainer}
         options={({ navigation }) => ({
           title: 'List',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (<AddItemButton/>),
+          tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,
+          headerRight: () => (<AddItemContainer/>),
         })}
       />
       <BottomTab.Screen
@@ -42,7 +42,7 @@ export default function BottomTabNavigator(params) {
         component={TabTwoScreen}
         options={{
           title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
         }}
       />
     </BottomTab.Navigator>

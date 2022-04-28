@@ -3,6 +3,9 @@ import DirectoryPath, {appPath} from '../data/constants/DirectoryPath';
 import * as FileSystem from 'expo-file-system';
 
 const getDictionariesList = async () =>{
+    const res = await FileSystem.getInfoAsync(DirectoryPath.dictionariesFilePath);
+        if(!res.exists)
+            await appDAO.makeFile(DirectoryPath.dictionariesFilePath, [])
     return await appDAO.readFile(DirectoryPath.dictionariesFilePath);
 }
 

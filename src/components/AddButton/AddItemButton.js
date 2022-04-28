@@ -7,7 +7,7 @@ import Colors from '../../data/constants/Colors';
 import useColorScheme from '../../data/hooks/useColorScheme';
 import DictionariesMock from '../../data/mock/DictionariesMock';
 
-const AddItemButton = () => {
+const AddItemButton = ({dictionaries, dictionary, createDictionary, resetReducer, ...props}) => {
     const colorScheme = useColorScheme();
     const [open, setOpen] = React.useState(false);
 
@@ -15,12 +15,20 @@ const AddItemButton = () => {
         setOpen(true);
     }, [])
 
-    const handleSubmit = React.useCallback(() =>{
-        appService.updateDictionaryList(JSON.stringify(DictionariesMock))
-        .then((res) => console.log(res))
-        .catch((err) =>console.error(err))
+    //TODO: Find better decision to update files
+    const handleAddDictionary = React.useCallback(() =>{
+        appService.updateDictionaryList([...dictionaries, dictionary])
+        .then((res) => {
+            createDictionary(dictionary);
+            resetReducer();
+        })
+        .catch((err) => console.error(err))
         .finally(() => setOpen(false))
-    }, [])
+    }, [dictionaries, dictionary])
+
+    const handleAddWord = React.useCallback(() =>{
+
+    }, []);
 
     return (
         <Pressable
@@ -34,7 +42,7 @@ const AddItemButton = () => {
           color={Colors[colorScheme].text}
           style={{ marginRight: 15 }}
         />
-        <AddItemDialogContainer open={open} onClose={setOpen} submit={handleSubmit}/>
+        <AddItemDialogContainer open={open} onClose={setOpen} submit={handleAddDictionary} {...props}/>
       </Pressable>
     )
 }

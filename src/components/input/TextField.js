@@ -15,11 +15,11 @@ const styles = StyleSheet.create({
 
 const TextField = ({value, onChange, ...props}) => {
 
-    const handleChange = React.useCallback((e) =>{
-        onChange(e.target.value)
+    const handleChange = React.useCallback((value) =>{
+        onChange(value)
     }, [onChange])
 
-    return (<TextInput style={styles.input} value={value} onChange={handleChange} {...props}/>)
+    return (<TextInput style={styles.input} value={value} onChangeText={handleChange} {...props}/>)
 }
 
 export default React.memo(TextField);
