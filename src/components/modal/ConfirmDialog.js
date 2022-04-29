@@ -60,13 +60,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
-    button: {
+    button: ({ pressed }) => ({
       borderRadius: 10,
       padding: 10,
       elevation: 2,
       backgroundColor: "black",
-      width: 150
-    },
+      width: 150,
+      opacity: pressed ? 0.5 : 1,
+    }),
     textStyle: {
       color: "white",
       textAlign: "center",

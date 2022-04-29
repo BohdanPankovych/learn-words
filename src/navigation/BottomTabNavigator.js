@@ -1,13 +1,14 @@
-import { FontAwesome } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Colors from '../data/constants/Colors';
 import useColorScheme from '../data/hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
+import LessonsPage from '../screens/LessonsPage/LessonsPage';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import DictionaryListContainer from '../screens/containers/DictionaryListContainer';
 
 import AddItemContainer from '../components/AddButton/containers/AddItemContainer';
+import Menu from '../components/menu/Menu';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -25,16 +26,17 @@ export default function BottomTabNavigator({...params}) {
         component={DictionaryListContainer}
         options={({ navigation }) => ({
           title: 'List',
-          tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="database" color={color} />,
           headerRight: () => (<AddItemContainer/>),
         })}
       />
       <BottomTab.Screen
         name="TabOne"
-        component={TabOneScreen}
+        component={LessonsPage}
         options={({ navigation }) => ({
           title: 'Learn',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+          headerRight: () => (<Menu/>)
         })}
       />
       <BottomTab.Screen
@@ -50,5 +52,5 @@ export default function BottomTabNavigator({...params}) {
 }
 
 function TabBarIcon(props) {
-    return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
+    return <AntDesign size={30} style={{ marginBottom: -3 }} {...props} />;
   }

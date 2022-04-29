@@ -1,19 +1,13 @@
 import React from 'react';
+import RightIcon from '../RightIcon';
 import AddItemDialogContainer from '../modal/container/AddItemDialogContainer';
 import appService from '../../storage/appService';
-import { Pressable } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
-import Colors from '../../data/constants/Colors';
-import useColorScheme from '../../data/hooks/useColorScheme';
 import DictionariesMock from '../../data/mock/DictionariesMock';
 
 const AddItemButton = ({dictionaries, dictionary, createDictionary, resetReducer, id, ...props}) => {
-    const colorScheme = useColorScheme();
     const [open, setOpen] = React.useState(false);
 
-    console.log("Word", id)
-
-    const handleClose = React.useCallback(() =>{
+    const handleOpen = React.useCallback(() =>{
         setOpen(true);
     }, [])
 
@@ -33,19 +27,10 @@ const AddItemButton = ({dictionaries, dictionary, createDictionary, resetReducer
     }, []);
 
     return (
-        <Pressable
-            onPress={handleClose}
-            style={({ pressed }) => ({
-            opacity: pressed ? 0.5 : 1,
-            })}>
-        <FontAwesome
-          name="plus"
-          size={30}
-          color={Colors[colorScheme].text}
-          style={{ marginRight: 15 }}
-        />
-        <AddItemDialogContainer open={open} onClose={setOpen} submit={handleAddDictionary} {...props}/>
-      </Pressable>
+        <React.Fragment>
+            <RightIcon handleOpen={handleOpen} iconName="plus"/>
+            <AddItemDialogContainer open={open} onClose={setOpen} submit={handleAddDictionary} {...props}/>
+        </React.Fragment>
     )
 }
 

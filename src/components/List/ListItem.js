@@ -23,12 +23,13 @@ const styles = StyleSheet.create({
       textAlign: "center",
       fontSize: 18
     },
-    deleteButton: {
+    deleteButton: ({pressed}) => ({
       backgroundColor: "black",
       borderRadius: 10,
       paddingVertical: 7,
-      paddingHorizontal: 15
-    }
+      paddingHorizontal: 15,
+      opacity: pressed ? 0.5 : 1
+    })
   });
 
 
@@ -54,7 +55,7 @@ const ListItem = ({firstSection, secondSection, onDelete, isDeleteWord=false}) =
                 <Text style={styles.title}>{firstSection}</Text>
                 <Text style={styles.title}>{secondSection}</Text>
                 <Pressable style={styles.deleteButton} onPress={handleOpen}>
-                <Text style={styles.textStyle}>Delete</Text>
+                  <Text style={styles.textStyle}>Delete</Text>
                 </Pressable>
             </View>
             <ConfirmDialog open={open} handleClose={handleClose} handleSubmit={handleDelete} isDeleteWord={isDeleteWord}/>
