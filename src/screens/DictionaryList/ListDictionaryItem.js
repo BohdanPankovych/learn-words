@@ -8,9 +8,7 @@ const ListDictionaryItem = ({id, onDelete, ...props}) =>{
 
     const handleDelete = React.useCallback(() =>{
         onDelete(id)
-        appService.deleteDictionary(id, dicitionaries.filter(val => val.id != id))
-        .then(() => console.log("delete"))
-        .catch((err) => console.error(err))
+        appService.deleteDictionary(id)
     }, [])
 
     return (<ListItem id={id} onDelete={handleDelete} {...props}/>)

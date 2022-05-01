@@ -12,16 +12,21 @@ const styles = StyleSheet.create({
     },
   });
 
-const WordListScreen = ({navigation, route}) => {
+const WordListScreen = ({navigation, route, words, setWords, deleteWord}) => {
     const renderItem = ({ item, ...props }) => (
-          <ListWordItem id={item.id} firstSection={item.wordName} secondSection={item.wordTranslate} isDeleteWord {...props} />
+          <ListWordItem 
+                dictionaryId={route.params.id}
+                id={item.id} 
+                firstSection={item.wordName}  
+                secondSection={item.wordTranslate} 
+                onDelete={deleteWord} 
+                isDeleteWord {...props} />
     );
 
     const getWords = () =>{
-      appService.getWordsList(route.params.id)
-      .then((res)=>{
-        console.log(res);
-      }).catch(err => console.error(err))
+      appService.getWordsList(route.params.id, (res) =>{
+        setWords(res);
+      })
     }
 
     React.useEffect(() =>{
@@ -30,7 +35,7 @@ const WordListScreen = ({navigation, route}) => {
 
     return (
       <View style={styles.container}>
-          <FlatList data={route.params.id ? germanMock : englishMock }  renderItem={renderItem} keyExtractor={item => item.id}/>
+          <FlatList data={words}  renderItem={renderItem} keyExtractor={item => item.id}/>
       </View>
     );
 }

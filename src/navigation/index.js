@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
-import WordListScreen from '../screens/WordListScreen/WordListScreen';
+import WordsListContainer from '../screens/containers/WordsListContainer';
 import QuestionPage from '../screens/questionPage/QuestionPage';
 import BottomTabNavigator from './BottomTabNavigator';
 import Drawer from '../components/Drawer/Drawer';
@@ -17,7 +17,7 @@ export default function RootNavigator() {
     <React.Fragment>
       <Stack.Navigator>
         <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-        <Stack.Screen name="WordList" component={WordListScreen} 
+        <Stack.Screen name="WordList" component={WordsListContainer} 
           options={({ navigation, route }) => ({
             title: 'Words',
             headerRight: () => (<AddItemContainer id={route.params.id} isWordAdd/>),
@@ -28,7 +28,6 @@ export default function RootNavigator() {
           <Stack.Screen name="Modal" component={ModalScreen} />
         </Stack.Group>
       </Stack.Navigator>
-      <Drawer/>
     </React.Fragment>
   );
 }

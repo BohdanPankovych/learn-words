@@ -2,34 +2,49 @@ import React from 'react';
 import RightIcon from '../RightIcon';
 import AddItemDialogContainer from '../modal/container/AddItemDialogContainer';
 import appService from '../../storage/appService';
-import DictionariesMock from '../../data/mock/DictionariesMock';
 
-const AddItemButton = ({dictionaries, dictionary, createDictionary, resetReducer, id, ...props}) => {
+const AddItemButton = ({
+    setWords,
+    word, 
+    dictionary, 
+    createDictionary, 
+    resetReducer, 
+    id, 
+    isWordAdd=false, ...props}) => {
     const [open, setOpen] = React.useState(false);
 
     const handleOpen = React.useCallback(() =>{
         setOpen(true);
     }, [])
 
-    //TODO: Find better decision to update files
     const handleAddDictionary = React.useCallback(() =>{
-        appService.updateDictionaryList([...dictionaries, dictionary])
-        .then((res) => {
+        appService.updateDictionaryList(dictionary, (res) => {
             createDictionary(dictionary);
             resetReducer();
         })
-        .catch((err) => console.error(err))
-        .finally(() => setOpen(false))
-    }, [dictionaries, dictionary])
+        setOpen(false);
+    }, [dictionary])
 
     const handleAddWord = React.useCallback(() =>{
-
+        appService.updateWordsList(id, word, (res) =>{
+            setWords(res);
+            resetReducer();
+        });
+        setOpen(false);
     }, []);
+
+    const handleSubmit = () => {
+        if(isWordAdd){
+            handleAddWord();
+        }else{
+            handleAddDictionary();
+        }
+    }
 
     return (
         <React.Fragment>
             <RightIcon handleOpen={handleOpen} iconName="plus"/>
-            <AddItemDialogContainer open={open} onClose={setOpen} submit={handleAddDictionary} {...props}/>
+            <AddItemDialogContainer open={open} onClose={setOpen} submit={handleSubmit} isWordAdd={isWordAdd} {...props}/>
         </React.Fragment>
     )
 }

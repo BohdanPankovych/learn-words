@@ -3,7 +3,8 @@ import "react-native-get-random-values";
 import * as uuid from 'uuid';
 
 const DictionaryDTO = new Immutable.Record({
-    id: uuid.v4(),
+    //TODO: Change id generation to avoid replace
+    id: uuid.v4().replace(/-/g, ""),
     dictionaryName: "",
     wordCount: 0
 })

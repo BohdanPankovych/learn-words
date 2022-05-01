@@ -19,11 +19,9 @@ export default function DictionariesListScreen({ navigation, setDictionaries, de
   );
   
   const getDictionaries = () => {
-    appService.getDictionariesList()
-    .then((res) => {
+    appService.getDictionariesList((res) => {
       setDictionaries(res)
     })
-    .catch(err => console.error(err))
   }
 
   React.useEffect(() => {

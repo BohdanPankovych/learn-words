@@ -1,33 +1,88 @@
-import appDAO from './appDAO';
-import DirectoryPath, {appPath} from '../data/constants/DirectoryPath';
-import * as FileSystem from 'expo-file-system';
+import * as SQLite from "expo-sqlite";
 
-const getDictionariesList = async () =>{
-    const res = await FileSystem.getInfoAsync(DirectoryPath.dictionariesFilePath);
-    if(!res.exists)
-        await appDAO.makeFile(DirectoryPath.dictionariesFilePath, [])
-    return await appDAO.readFile(DirectoryPath.dictionariesFilePath);
+function openDatabase() {
+    if (Platform.OS === "web") {
+      return {
+        transaction: () => {
+          return {
+            executeSql: () => {},
+          };
+        },
+      };
+    }
+  
+    const db = SQLite.openDatabase("db.db");
+    return db;
+  }
+  
+const db = openDatabase();
+db.transaction((tx) => {
+    tx.executeSql(
+      "create table if not exists dictionaries (id text primary key not null, dictionaryName text, wordCount int);"
+    );
+});
+
+const getDictionariesList = (callback) =>{
+    db.transaction((tx) => {
+        tx.executeSql(
+          `select * from dictionaries`,
+          null,
+          (_, { rows: { _array } }) => callback(_array)
+        );
+    });
 }
 
-const updateDictionaryList = async (content) => {
-    return await appDAO.makeFile(DirectoryPath.dictionariesFilePath, content)
+const updateDictionaryList = (content, callback) => {
+    db.transaction(
+        (tx) => {
+          tx.executeSql("insert into dictionaries (id, dictionaryName, wordCount) values (?, ?, 0)", [content.id, content.dictionaryName]);
+          tx.executeSql(`create table if not exists ${content.id} (id integer primary key not null, wordName text, wordTranslate text);`, null, null, (error)=>console.log(error));
+          tx.executeSql("select * from dictionaries", [], (_, { rows: {_array} }) => {
+            callback(_array)
+        }
+        );
+        },
+    );
 }
 
-const deleteDictionary = async (id, content) => {
-    await appDAO.deleteFile(DirectoryPath.wordsDictFilePath(id));
-    await appDAO.makeFile(DirectoryPath.dictionariesFilePath, content)
+const deleteDictionary = (id) => {
+    db.transaction(
+        (tx) => {
+          tx.executeSql(`delete from dictionaries where id = ?;`, [id]);
+          tx.executeSql(`drop table ${id}`)
+        },
+    )
 }
 
-const getWordsList = async (id) =>{
-    const res = await FileSystem.getInfoAsync(DirectoryPath.wordsDictFilePath(id));
-    // FileSystem.deleteAsync(DirectoryPath.wordsDictFilePath(id))
-    if(!res.exists)
-        await appDAO.makeFile(DirectoryPath.wordsDictFilePath(id), [])
-    return await appDAO.readFile(DirectoryPath.wordsDictFilePath(id));
+const getWordsList = (id, callback) =>{
+    db.transaction(
+        (tx) => {
+            tx.executeSql(`select * from ${id}`, [], (_, { rows: { _array } }) => {
+                callback(_array)
+            }
+            )
+        },
+    )
 }
 
-const createWordsList = async (id, content) =>{
-    return await appDAO.makeFile(DirectoryPath.wordsDictFilePath(id), content);
+const updateWordsList = (id, content, callback) =>{
+    console.log(content);
+    db.transaction(
+        (tx) => {
+            tx.executeSql(`insert into ${id} (wordName, wordTranslate) values (?, ?)`, [content.wordName, content.wordTranslate])
+            tx.executeSql(`select * from ${id}`, [], (_, { rows: {_array} }) => {
+                callback(_array)
+            },);
+        },
+    )
+}
+
+const deleteWord = (dictionaryId, wordId) => {
+    db.transaction(
+        (tx) => {
+          tx.executeSql(`delete from ${dictionaryId} where id = ?;`, [wordId]);
+        },
+    )
 }
 
 const appService = {
@@ -35,7 +90,8 @@ const appService = {
     getDictionariesList,
     deleteDictionary,
     getWordsList,
-    createWordsList
+    updateWordsList,
+    deleteWord
 }
 
 export default appService;
