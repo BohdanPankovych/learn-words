@@ -13,12 +13,14 @@ function openDatabase() {
   
     const db = SQLite.openDatabase("db.db");
     return db;
-  }
+}
+
+const handleLog = (_, res) => console.log(res);
   
 const db = openDatabase();
 db.transaction((tx) => {
     tx.executeSql(
-      "create table if not exists dictionaries (id text primary key not null, dictionaryName text, wordCount int);"
+     "create table if not exists dictionaries (id integer primary key not null, wordsFileName text, dictionaryName text, wordCount int);"
     );
 });
 
@@ -27,7 +29,9 @@ const getDictionariesList = (callback) =>{
         tx.executeSql(
           `select * from dictionaries`,
           null,
-          (_, { rows: { _array } }) => callback(_array)
+          (_, { rows: { _array } }) => {
+            callback(_array)
+          }
         );
     });
 }
@@ -35,11 +39,11 @@ const getDictionariesList = (callback) =>{
 const updateDictionaryList = (content, callback) => {
     db.transaction(
         (tx) => {
-          tx.executeSql("insert into dictionaries (id, dictionaryName, wordCount) values (?, ?, 0)", [content.id, content.dictionaryName]);
-          tx.executeSql(`create table if not exists ${content.id} (id integer primary key not null, wordName text, wordTranslate text);`, null, null, (error)=>console.log(error));
+          tx.executeSql("insert into dictionaries (wordsFileName, dictionaryName, wordCount) values (?, ?, 0)", [content.wordsFileName, content.dictionaryName]);
+          tx.executeSql(`create table if not exists ${content.wordsFileName} (id integer primary key not null, wordName text, wordTranslate text);`, null);
           tx.executeSql("select * from dictionaries", [], (_, { rows: {_array} }) => {
-            callback(_array)
-        }
+            callback(_array);
+          }
         );
         },
     );
@@ -54,10 +58,10 @@ const deleteDictionary = (id) => {
     )
 }
 
-const getWordsList = (id, callback) =>{
+const getWordsList = (wordsFileName, callback) =>{
     db.transaction(
         (tx) => {
-            tx.executeSql(`select * from ${id}`, [], (_, { rows: { _array } }) => {
+            tx.executeSql(`select * from ${wordsFileName}`, [], (_, { rows: { _array } }) => {
                 callback(_array)
             }
             )
@@ -65,22 +69,21 @@ const getWordsList = (id, callback) =>{
     )
 }
 
-const updateWordsList = (id, content, callback) =>{
-    console.log(content);
+const updateWordsList = (wordsFileName, content, callback) =>{
     db.transaction(
         (tx) => {
-            tx.executeSql(`insert into ${id} (wordName, wordTranslate) values (?, ?)`, [content.wordName, content.wordTranslate])
-            tx.executeSql(`select * from ${id}`, [], (_, { rows: {_array} }) => {
+            tx.executeSql(`insert into ${wordsFileName} (wordName, wordTranslate) values (?, ?)`, [content.wordName, content.wordTranslate])
+            tx.executeSql(`select * from ${wordsFileName}`, [], (_, { rows: {_array} }) => {
                 callback(_array)
             },);
         },
     )
 }
 
-const deleteWord = (dictionaryId, wordId) => {
+const deleteWord = (wordsFileName, wordId) => {
     db.transaction(
         (tx) => {
-          tx.executeSql(`delete from ${dictionaryId} where id = ?;`, [wordId]);
+          tx.executeSql(`delete from ${wordsFileName} where id = ?;`, [wordId]);
         },
     )
 }

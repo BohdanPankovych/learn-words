@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 const WordListScreen = ({navigation, route, words, setWords, deleteWord}) => {
     const renderItem = ({ item, ...props }) => (
           <ListWordItem 
-                dictionaryId={route.params.id}
+                wordsFileName={route.params.wordsFileName}
                 id={item.id} 
                 firstSection={item.wordName}  
                 secondSection={item.wordTranslate} 
@@ -24,7 +24,7 @@ const WordListScreen = ({navigation, route, words, setWords, deleteWord}) => {
     );
 
     const getWords = () =>{
-      appService.getWordsList(route.params.id, (res) =>{
+      appService.getWordsList(route.params.wordsFileName, (res) =>{
         setWords(res);
       })
     }

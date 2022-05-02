@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
 
 export default function DictionariesListScreen({ navigation, setDictionaries, deleteDictionary, dictionaries }) {
   const renderItem = ({ item, ...props }) => (
-    <Pressable onPress={() => navigation.navigate("WordList", {id: item.id})}>
+    <Pressable onPress={() => navigation.navigate("WordList", {wordsFileName: item.wordsFileName})}>
       <ListDictionaryItem id={item.id} firstSection={item.dictionaryName} secondSection={`Words: ${item.wordCount}`} onDelete={deleteDictionary} {...props} />
     </Pressable>
   );

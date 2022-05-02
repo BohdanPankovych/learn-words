@@ -8,10 +8,10 @@ export const LessonNames = {
 const Lessons = [
     {id: "0", name: LessonNames.WORDS, img: words},
     {id: "1", name: LessonNames.TRANSLATE, img: translate},
-    //{id: "2", name: "", img: ""},
-    //{id: "3", name: "", img: ""},
-    //{id: "4", name: "", img: ""},
-    //{id: "5", name: "", img: ""},
+    {id: "2", name: "", img: 0},
+    {id: "3", name: "", img: 0},
+    {id: "4", name: "", img: 0},
+    {id: "5", name: "", img: 0},
 ]
 
 export default Lessons;

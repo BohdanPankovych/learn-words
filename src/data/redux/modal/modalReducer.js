@@ -11,7 +11,8 @@ const defaultState = new Immutable.OrderedMap({
 const modalReducer = (state = defaultState, action) => {
     switch (action.type) {
       case modalActionTypes.SET_DICTIONARY_NAME:
-        return state.setIn(["dictionary", "dictionaryName"], action.payload.name);
+        return state.setIn(["dictionary", "dictionaryName"], action.payload.name)
+                    .setIn(["dictionary", "wordsFileName"], action.payload.name);
   
       case modalActionTypes.SET_WORD_NAME:
         return state.setIn(["word", "wordName"], action.payload.name);

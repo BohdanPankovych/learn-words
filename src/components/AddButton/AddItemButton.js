@@ -9,7 +9,7 @@ const AddItemButton = ({
     dictionary, 
     createDictionary, 
     resetReducer, 
-    id, 
+    wordsFileName, 
     isWordAdd=false, ...props}) => {
     const [open, setOpen] = React.useState(false);
 
@@ -26,12 +26,12 @@ const AddItemButton = ({
     }, [dictionary])
 
     const handleAddWord = React.useCallback(() =>{
-        appService.updateWordsList(id, word, (res) =>{
+        appService.updateWordsList(wordsFileName, word, (res) =>{
             setWords(res);
             resetReducer();
         });
         setOpen(false);
-    }, []);
+    }, [wordsFileName, word, setWords]);
 
     const handleSubmit = () => {
         if(isWordAdd){

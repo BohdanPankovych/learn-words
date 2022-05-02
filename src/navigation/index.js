@@ -20,7 +20,7 @@ export default function RootNavigator() {
         <Stack.Screen name="WordList" component={WordsListContainer} 
           options={({ navigation, route }) => ({
             title: 'Words',
-            headerRight: () => (<AddItemContainer id={route.params.id} isWordAdd/>),
+            headerRight: () => (<AddItemContainer wordsFileName={route.params.wordsFileName} isWordAdd/>),
           })}/>
         <Stack.Screen name="QuestionPage" component={QuestionPage}/>
         <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
