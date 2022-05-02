@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 const LessonItem = ({img, name}) => {
     const navigation = useNavigation();
     const handleClick = React.useCallback(() =>{
-        navigation.navigate("QuestionPage")
+        navigation.navigate("TaskScreen")
     }, []);
 
     return (

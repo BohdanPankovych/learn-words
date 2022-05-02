@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import WordsListContainer from '../screens/containers/WordsListContainer';
-import QuestionPage from '../screens/questionPage/QuestionPage';
+import TaskScreenContainer from '../screens/containers/TaskScreenContainer';
 import BottomTabNavigator from './BottomTabNavigator';
 import Drawer from '../components/Drawer/Drawer';
 
@@ -22,7 +22,7 @@ export default function RootNavigator() {
             title: 'Words',
             headerRight: () => (<AddItemContainer wordsFileName={route.params.wordsFileName} isWordAdd/>),
           })}/>
-        <Stack.Screen name="QuestionPage" component={QuestionPage}/>
+        <Stack.Screen name="TaskScreen" component={TaskScreenContainer}/>
         <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
         <Stack.Group screenOptions={{ presentation: 'modal' }}>
           <Stack.Screen name="Modal" component={ModalScreen} />
