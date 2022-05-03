@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, FlatList, Pressable } from 'react-native';
-import { View } from '../../components/Themed';
 import ListDictionaryItem from './ListDictionaryItem';
+import { View } from '../../components/Themed';
 import SQLService from '../../storage/SQLService';
+import EmptyListScreen from '../../components/helpers/EmptyListScreen';
 
 const styles = StyleSheet.create({
     container: {
@@ -14,7 +15,13 @@ const styles = StyleSheet.create({
 export default function DictionariesListScreen({ navigation, setDictionaries, deleteDictionary, dictionaries }) {
   const renderItem = ({ item, ...props }) => (
     <Pressable onPress={() => navigation.navigate("WordList", {wordsFileName: item.wordsFileName})}>
-      <ListDictionaryItem id={item.id} firstSection={item.dictionaryName} secondSection={`Words: ${item.wordCount}`} onDelete={deleteDictionary} {...props} />
+      <ListDictionaryItem 
+          id={item.id} 
+          firstSection={item.dictionaryName} 
+          secondSection={`Words: ${item.wordCount}`} 
+          onDelete={deleteDictionary} 
+          dictionaryName={item.wordsFileName}
+          {...props} />
     </Pressable>
   );
   
@@ -30,7 +37,10 @@ export default function DictionariesListScreen({ navigation, setDictionaries, de
 
   return (
     <View style={styles.container}>
+      {dictionaries.length ?
         <FlatList data={dictionaries}  renderItem={renderItem} keyExtractor={item => item.id}/>
+        : <EmptyListScreen text={"There are no dictionaries.\n Add one by pressing \"add button\" in top-right corner"}/>
+      }    
     </View>
   );
 }

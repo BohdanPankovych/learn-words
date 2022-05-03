@@ -3,10 +3,11 @@ import ListItem from '../../components/List/ListItem';
 import { useSelector } from 'react-redux';
 import SQLService from '../../storage/SQLService';
 
-const ListDictionaryItem = ({id, onDelete, ...props}) =>{
+const ListDictionaryItem = ({id, dictionaryName, onDelete, ...props}) =>{
     const handleDelete = React.useCallback(() =>{
-        onDelete(id)
-        SQLService.deleteDictionary(id)
+        SQLService.deleteDictionary(id, dictionaryName, ()=>{
+            onDelete(id)
+        })
     }, [])
 
     return (<ListItem id={id} onDelete={handleDelete} {...props}/>)

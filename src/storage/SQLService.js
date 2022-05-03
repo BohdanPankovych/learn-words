@@ -49,13 +49,15 @@ const updateDictionaryList = (content, callback) => {
     );
 }
 
-const deleteDictionary = (id) => {
+const deleteDictionary = (id, dictionaryName, callback) => {
+  console.log(id);
     db.transaction(
         (tx) => {
-          tx.executeSql(`delete from dictionaries where id = ?;`, [id]);
-          tx.executeSql(`drop table ${id}`)
+          tx.executeSql(`delete from dictionaries where id = ?;`, [id], handleLog, handleLog);
+          tx.executeSql(`drop table ${dictionaryName}`, [], handleLog, handleLog)
         },
     )
+    callback()
 }
 
 const getWordsList = (wordsFileName, callback) =>{

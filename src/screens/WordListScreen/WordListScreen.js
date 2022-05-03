@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, FlatList, Pressable } from 'react-native';
 import { View } from '../../components/Themed';
 import ListWordItem from './ListWordItem';
-import { germanMock, englishMock } from '../../data/mock/WordsMock';
+import EmptyListScreen from '../../components/helpers/EmptyListScreen';
 import SQLService from '../../storage/SQLService';
 
 const styles = StyleSheet.create({
@@ -35,7 +35,11 @@ const WordListScreen = ({navigation, route, words, setWords, deleteWord}) => {
 
     return (
       <View style={styles.container}>
-          <FlatList data={words}  renderItem={renderItem} keyExtractor={item => item.id}/>
+        {words.length?
+        <FlatList data={words}  renderItem={renderItem} keyExtractor={item => item.id}/>
+        : <EmptyListScreen text={"There are no words.\n Add some words by pressing \"add button\" in top-right corner"}/>
+        }
+          
       </View>
     );
 }
