@@ -1,13 +1,13 @@
 import React from 'react';
 import ListItem from '../../components/List/ListItem';
 import { useSelector } from 'react-redux';
-import appService from '../../storage/appService';
+import SQLService from '../../storage/SQLService';
 
 const ListWordItem = ({wordsFileName, id, onDelete, ...props}) => {
 
     const handleDelete = React.useCallback(() =>{
         onDelete(id);
-        appService.deleteWord(wordsFileName, id);
+        SQLService.deleteWord(wordsFileName, id);
     }, [])
 
     return (<ListItem id={id} onDelete={handleDelete} {...props}/>)

@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, FlatList, Pressable } from 'react-native';
 import { View } from '../../components/Themed';
 import ListDictionaryItem from './ListDictionaryItem';
-import appService from '../../storage/appService';
+import SQLService from '../../storage/SQLService';
 
 const styles = StyleSheet.create({
     container: {
@@ -19,7 +19,7 @@ export default function DictionariesListScreen({ navigation, setDictionaries, de
   );
   
   const getDictionaries = () => {
-    appService.getDictionariesList((res) => {
+    SQLService.getDictionariesList((res) => {
       setDictionaries(res)
     })
   }

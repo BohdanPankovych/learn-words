@@ -5,7 +5,8 @@ import taskActions from '../../data/redux/task/taskActions';
 
 const mapStateToProps = state => ({
     task: state.task.get("task"),
-    stopTest: state.task.get("stopTest")
+    stopTest: state.task.get("stopTest"),
+    selectedDictionary: state.dictionary.get("selectedDictionary")
 });
 const mapDispatchToProps = {
     ...taskActions

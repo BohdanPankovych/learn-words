@@ -25,7 +25,7 @@ const tasksBuilder = (dataArray, translate = true) => {
     [FILEDS_NAME.WORD_TRANSLATE, FILEDS_NAME.WORD_NAME]
     : [FILEDS_NAME.WORD_NAME, FILEDS_NAME.WORD_TRANSLATE];
     
-    return dataArray.map(val => {
+    const newArray = dataArray.map(val => {
         tmp = [
             {text: val[wordField], isTrue: true},
             {text: getRandomValueFromArray(dataArray, wordField), isTrue: false},
@@ -33,6 +33,8 @@ const tasksBuilder = (dataArray, translate = true) => {
         ]
         return {word: val[translateField], variants: shuffle(tmp)}
     });
+
+    return shuffle(newArray);
 }
 
 export default tasksBuilder;

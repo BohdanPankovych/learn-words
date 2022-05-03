@@ -14,3 +14,8 @@ export const deleteDictionary = (id) => ({
   type: dictionaryActionTypes.DELETE_DICTIONARY,
   payload: { id }
 })
+
+export const selectDcitionary = (dictionaryName) => ({
+  type: dictionaryActionTypes.SELECT_DICTIONARY,
+  payload: { dictionaryName }
+})

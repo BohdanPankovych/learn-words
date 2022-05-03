@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, View, StyleSheet } from 'react-native';
 import TaskBlock from './TaskBlock';
 import ReturnBlock from './ReturnBlock';
-import appService from '../../storage/appService';
+import SQLService from '../../storage/SQLService';
 import buildTasks from '../../data/algorithm/buildTasks';
 import { TASK_TYPES_VALUE } from '../../data/constants/Lessons';
 
@@ -28,10 +28,10 @@ const styles = StyleSheet.create({
     },
 })
 
-function TaskScreen({task, stopTest, setTask, nextTask, setWords, resetReducer, route}) {
+function TaskScreen({task, selectedDictionary, stopTest, setTask, nextTask, setWords, resetReducer, route}) {
     //TODO: rewrite code logic
     const getWordsByDictionaryName = () =>{
-        appService.getWordsList("English", (res) =>{
+        SQLService.getWordsList(selectedDictionary, (res) =>{
             const taskType = route.params.taskType;
             const words = buildTasks(res, TASK_TYPES_VALUE[taskType]);
             

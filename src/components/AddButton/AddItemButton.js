@@ -1,7 +1,7 @@
 import React from 'react';
 import RightIcon from '../RightIcon';
 import AddItemDialogContainer from '../modal/container/AddItemDialogContainer';
-import appService from '../../storage/appService';
+import SQLService from '../../storage/SQLService';
 
 const AddItemButton = ({
     setWords,
@@ -18,7 +18,7 @@ const AddItemButton = ({
     }, [])
 
     const handleAddDictionary = React.useCallback(() =>{
-        appService.updateDictionaryList(dictionary, (res) => {
+        SQLService.updateDictionaryList(dictionary, (res) => {
             createDictionary(dictionary);
             resetReducer();
         })
@@ -26,7 +26,7 @@ const AddItemButton = ({
     }, [dictionary])
 
     const handleAddWord = React.useCallback(() =>{
-        appService.updateWordsList(wordsFileName, word, (res) =>{
+        SQLService.updateWordsList(wordsFileName, word, (res) =>{
             setWords(res);
             resetReducer();
         });

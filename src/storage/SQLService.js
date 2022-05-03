@@ -88,7 +88,7 @@ const deleteWord = (wordsFileName, wordId) => {
     )
 }
 
-const appService = {
+const SQLService = {
     updateDictionaryList,
     getDictionariesList,
     deleteDictionary,
@@ -97,4 +97,4 @@ const appService = {
     deleteWord
 }
 
-export default appService;
+export default SQLService;

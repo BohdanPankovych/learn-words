@@ -21,9 +21,9 @@ const modalReducer = (state = defaultState, action) => {
             return state.set("stopTest", true);
         return state.set("task", words.pop()).set("words", words);
 
-        case taskActionTypes.RESET_REDUCER:
-            return defaultState;
-
+      case taskActionTypes.RESET_REDUCER:
+        return defaultState;
+      
       default:
         return state;
     }

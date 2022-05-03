@@ -9,6 +9,7 @@ import DictionaryListContainer from '../screens/containers/DictionaryListContain
 
 import AddItemContainer from '../components/AddButton/containers/AddItemContainer';
 import Menu from '../components/menu/Menu';
+import DropDown from '../components/DropDown/DropDown';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -36,7 +37,7 @@ export default function BottomTabNavigator({...params}) {
         options={({ navigation }) => ({
           title: 'Learn',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-          headerRight: () => (<Menu/>)
+          headerRight: () => (<DropDown/>)
         })}
       />
       <BottomTab.Screen

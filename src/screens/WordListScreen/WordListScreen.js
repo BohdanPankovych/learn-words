@@ -3,7 +3,7 @@ import { StyleSheet, FlatList, Pressable } from 'react-native';
 import { View } from '../../components/Themed';
 import ListWordItem from './ListWordItem';
 import { germanMock, englishMock } from '../../data/mock/WordsMock';
-import appService from '../../storage/appService';
+import SQLService from '../../storage/SQLService';
 
 const styles = StyleSheet.create({
     container: {
@@ -24,7 +24,7 @@ const WordListScreen = ({navigation, route, words, setWords, deleteWord}) => {
     );
 
     const getWords = () =>{
-      appService.getWordsList(route.params.wordsFileName, (res) =>{
+      SQLService.getWordsList(route.params.wordsFileName, (res) =>{
         setWords(res);
       })
     }
