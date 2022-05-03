@@ -7,7 +7,7 @@ export default function LessonsPage({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.dataGrid}>
-        {Lessons?.map((val, index) => <LessonItem key={val.id} img={val.img} name={val.name}/>)}
+        {Lessons?.map((val, index) => <LessonItem key={val.id} img={val.img} name={val.name} taskType={val.taskType}/>)}
       </View>
     </View>
   );

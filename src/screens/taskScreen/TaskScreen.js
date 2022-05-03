@@ -3,6 +3,8 @@ import { Text, View, StyleSheet } from 'react-native';
 import TaskBlock from './TaskBlock';
 import ReturnBlock from './ReturnBlock';
 import appService from '../../storage/appService';
+import buildTasks from '../../data/algorithm/buildTasks';
+import { TASK_TYPES_VALUE } from '../../data/constants/Lessons';
 
 const styles = StyleSheet.create({
     root:{
@@ -26,19 +28,14 @@ const styles = StyleSheet.create({
     },
 })
 
-function TaskScreen({task, stopTest, setTask, nextTask, setWords, resetReducer}) {
-    const getRandomValueFromArray = (arrayName) => arrayName[Math.floor(Math.random() * arrayName.length)].wordTranslate;
-
-    //TODO: find better decision or rewrite code
+function TaskScreen({task, stopTest, setTask, nextTask, setWords, resetReducer, route}) {
+    //TODO: rewrite code logic
     const getWordsByDictionaryName = () =>{
         appService.getWordsList("English", (res) =>{
-            const words = res.map(val => {
-                return {...val, variants: [
-                    {text: val.wordTranslate, isTrue: true},
-                    {text: getRandomValueFromArray(res), isTrue: false},
-                    {text: getRandomValueFromArray(res), isTrue: false}
-                ]}
-            });
+            const taskType = route.params.taskType;
+            const words = buildTasks(res, TASK_TYPES_VALUE[taskType]);
+            
+            //get first task
             setTask(words.pop());
             setWords(words);
         })

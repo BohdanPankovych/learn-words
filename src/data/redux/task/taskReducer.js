@@ -2,7 +2,7 @@ import Immutable from "immutable";
 import taskActionTypes from './taskActionTypes';
 
 const defaultState = new Immutable.OrderedMap({
-    task: {wordName: "", variants:[]},
+    task: {word: "", variants:[]},
     words: [],
     stopTest: false,
 })

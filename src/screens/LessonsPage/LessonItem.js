@@ -3,10 +3,10 @@ import { StyleSheet } from 'react-native';
 import { Image, View, Pressable, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const LessonItem = ({img, name}) => {
+const LessonItem = ({img, name, taskType}) => {
     const navigation = useNavigation();
     const handleClick = React.useCallback(() =>{
-        navigation.navigate("TaskScreen")
+        taskType && navigation.navigate("TaskScreen", {taskType})
     }, []);
 
     return (

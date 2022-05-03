@@ -4,8 +4,6 @@ import { useSelector } from 'react-redux';
 import appService from '../../storage/appService';
 
 const ListDictionaryItem = ({id, onDelete, ...props}) =>{
-    const dicitionaries = useSelector(state => state.dictionary.get("dictionary"));
-
     const handleDelete = React.useCallback(() =>{
         onDelete(id)
         appService.deleteDictionary(id)
