@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet } from 'react-native';
-import { Image, View, Pressable, Text } from 'react-native';
+import { Image, View, Pressable, Text, Alert  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 
@@ -11,9 +11,15 @@ const LessonItem = ({img, name, taskType}) => {
         if(selectedDicitionary){
             taskType && navigation.navigate("TaskScreen", {taskType})
         } else {
-            //TODO: push alert if dictionary is not slected
+            Alert.alert(
+                "Ops",
+                "The dicitionary is not selected",
+                [
+                    {text: "ok"}
+                ]
+            )
         }
-    }, []);
+    }, [selectedDicitionary]);
 
     return (
         <React.Fragment>
