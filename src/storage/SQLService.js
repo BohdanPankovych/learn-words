@@ -42,6 +42,7 @@ const updateDictionaryList = (content, callback) => {
           tx.executeSql("insert into dictionaries (wordsFileName, dictionaryName, wordCount) values (?, ?, 0)", [content.wordsFileName, content.dictionaryName]);
           tx.executeSql(`create table if not exists ${content.wordsFileName} (id integer primary key not null, wordName text, wordTranslate text);`, null);
           tx.executeSql("select * from dictionaries", [], (_, { rows: {_array} }) => {
+            console.log(_array)
             callback(_array);
           }
         );
@@ -51,6 +52,7 @@ const updateDictionaryList = (content, callback) => {
 
 const deleteDictionary = (id, dictionaryName, callback) => {
   console.log(id);
+  console.log("dicitonaryName", dictionaryName);
     db.transaction(
         (tx) => {
           tx.executeSql(`delete from dictionaries where id = ?;`, [id], handleLog, handleLog);

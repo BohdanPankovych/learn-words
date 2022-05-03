@@ -17,13 +17,14 @@ const styles = StyleSheet.create({
 
 function DropDown() {
     const dispatch = useDispatch();
+    const dictionariesList = useSelector(state => state.dictionary.get("dictionary"))
     const [dictionaries, setDicitionaries] = React.useState([]);
 
     React.useEffect(() =>{
         SQLService.getDictionariesList((array) =>{
             setDicitionaries(array);
         })
-    }, []);
+    }, [dictionariesList]);
 
     const handleSelect = React.useCallback((selectedItem, index) => {
         dispatch(selectDcitionary(selectedItem.wordsFileName));
