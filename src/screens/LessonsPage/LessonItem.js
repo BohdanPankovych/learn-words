@@ -8,17 +8,18 @@ const LessonItem = ({img, name, taskType}) => {
     const navigation = useNavigation();
     const selectedDicitionary = useSelector(state => state.dictionary.get("selectedDictionary"));
     const handleClick = React.useCallback(() =>{
-        if(selectedDicitionary){
-            taskType && navigation.navigate("TaskScreen", {taskType})
-        } else {
-            Alert.alert(
-                "Ops",
-                "The dicitionary is not selected",
-                [
-                    {text: "ok"}
-                ]
-            )
-        }
+        if(taskType)
+            if(selectedDicitionary){
+                navigation.navigate("TaskScreen", {taskType})
+            } else {
+                Alert.alert(
+                    "Ops",
+                    "The dicitionary is not selected",
+                    [
+                        {text: "ok"}
+                    ]
+                )
+            }
     }, [selectedDicitionary]);
 
     return (

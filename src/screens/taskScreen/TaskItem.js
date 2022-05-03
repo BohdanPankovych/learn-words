@@ -28,7 +28,7 @@ function TaskItem({ wordName, isTrue, onPress }) {
       onPress();
       setbgColor(Colors.white);
     }, 600);
-  }, []);
+  }, [wordName, isTrue]);
 
   return (
     <Pressable style={({ pressed }) => ({opacity: pressed ? 0.5 : 1,})} onPress={handlePress}>

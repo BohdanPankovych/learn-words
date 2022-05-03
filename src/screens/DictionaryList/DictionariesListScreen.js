@@ -38,7 +38,7 @@ export default function DictionariesListScreen({ navigation, setDictionaries, de
   return (
     <View style={styles.container}>
       {dictionaries.length ?
-        <FlatList data={dictionaries}  renderItem={renderItem} keyExtractor={item => item.id}/>
+        <FlatList data={dictionaries}  renderItem={renderItem} keyExtractor={(item, index) => (item.id + "_" + index)}/>
         : <EmptyListScreen text={"There are no dictionaries.\n Add one by pressing \"add button\" in top-right corner"}/>
       }    
     </View>

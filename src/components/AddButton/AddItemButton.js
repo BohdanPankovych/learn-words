@@ -7,7 +7,7 @@ const AddItemButton = ({
     setWords,
     word, 
     dictionary, 
-    createDictionary, 
+    setDictionaries, 
     resetReducer, 
     wordsFileName, 
     isWordAdd=false, ...props}) => {
@@ -19,7 +19,7 @@ const AddItemButton = ({
 
     const handleAddDictionary = React.useCallback(() =>{
         SQLService.updateDictionaryList(dictionary, (res) => {
-            createDictionary(dictionary);
+            setDictionaries(res);
             resetReducer();
         })
         setOpen(false);

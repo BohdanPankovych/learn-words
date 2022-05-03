@@ -8,7 +8,7 @@ const ListDictionaryItem = ({id, dictionaryName, onDelete, ...props}) =>{
         SQLService.deleteDictionary(id, dictionaryName, ()=>{
             onDelete(id)
         })
-    }, [])
+    }, [id, dictionaryName])
 
     return (<ListItem id={id} onDelete={handleDelete} {...props}/>)
 }

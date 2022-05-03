@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import AddItemButton from '../AddItemButton';
-import { createDictionary } from '../../../data/redux/dictionary/dictionaryActions';
+import { setDictionaries } from '../../../data/redux/dictionary/dictionaryActions';
 import { addWord, setWords } from '../../../data/redux/words/wordsActions';
 import { resetReducer } from '../../../data/redux/modal/modalActions';
 
@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
     dictionary: state.modal.get("dictionary"),
 });
 const mapDispatchToProps = {
-    createDictionary,
+    setDictionaries,
     setWords,
     resetReducer
 };
