@@ -1,11 +1,12 @@
 import React from 'react';
 import { StyleSheet, Pressable } from 'react-native';
+import { ListItem as ListItemMui, } from '@rneui/themed';
 import { Text, View } from '../../components/Themed';
 import ConfirmDialog from '../modal/ConfirmDialog';
 
 const styles = StyleSheet.create({
     title: {
-      fontSize: 20,
+      fontSize: 22,
       fontWeight: 'bold',
     },
     translate: {
@@ -53,17 +54,19 @@ const ListItem = ({firstSection, secondSection, onDelete, isDeleteWord=false}) =
       setOpen(false);
     }, [])
 
-    return (    
-        <View style={styles.item}>
-            <View style={styles.content}>
-                <Text style={styles.title}>{firstSection}</Text>
-                <Text style={styles.translate}>{secondSection}</Text>
-                <Pressable style={styles.deleteButton} onPress={handleOpen}>
-                  <Text style={styles.textStyle}>Delete</Text>
-                </Pressable>
-            </View>
-            <ConfirmDialog open={open} handleClose={handleClose} handleSubmit={handleDelete} isDeleteWord={isDeleteWord}/>
-        </View>
+    return (  
+        <ListItemMui bottomDivider>
+          <ListItemMui.Content>
+            <ListItemMui.Title style={styles.title}>{firstSection}</ListItemMui.Title>
+            <ListItemMui.Subtitle>{secondSection}</ListItemMui.Subtitle>
+          </ListItemMui.Content>
+          <ListItemMui.Content style={{ alignItems: "flex-end" }}>
+              <Pressable style={styles.deleteButton} onPress={handleOpen}>
+                <Text style={styles.textStyle}>Delete</Text>
+              </Pressable>
+          </ListItemMui.Content>
+          <ConfirmDialog open={open} handleClose={handleClose} handleSubmit={handleDelete} isDeleteWord={isDeleteWord}/>
+        </ListItemMui>
     )
 }
 
