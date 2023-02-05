@@ -5,6 +5,7 @@ const defaultState = new Immutable.OrderedMap({
     task: {word: "", variants:[]},
     words: [],
     stopTest: false,
+    successCounter: 0
 })
 
 const modalReducer = (state = defaultState, action) => {
@@ -20,6 +21,9 @@ const modalReducer = (state = defaultState, action) => {
         if(!words.length)
             return state.set("stopTest", true);
         return state.set("task", words.pop()).set("words", words);
+
+      case taskActionTypes.ADD_COUNTER:
+          return state.set("successCounter", state.get("successCounter") + 1);
 
       case taskActionTypes.RESET_REDUCER:
         return defaultState;

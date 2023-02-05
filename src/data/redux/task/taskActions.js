@@ -18,9 +18,14 @@ export const resetReducer = () => ({
     type: taskActionTypes.RESET_REDUCER
 })
 
+export const addCounter = () => ({
+    type: taskActionTypes.ADD_COUNTER
+})
+
 export default {
     setWords,
     setTask,
     nextTask,
-    resetReducer
+    resetReducer,
+    addCounter
 }

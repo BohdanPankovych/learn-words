@@ -6,7 +6,6 @@ import NotFoundScreen from '../screens/NotFoundScreen';
 import WordsListContainer from '../screens/containers/WordsListContainer';
 import TaskScreenContainer from '../screens/containers/TaskScreenContainer';
 import BottomTabNavigator from './BottomTabNavigator';
-import Drawer from '../components/Drawer/Drawer';
 
 import AddItemContainer from '../components/AddButton/containers/AddItemContainer';
 

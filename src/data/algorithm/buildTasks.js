@@ -3,7 +3,11 @@ const FILEDS_NAME = {
     WORD_TRANSLATE: "wordTranslate"
 }
 
-const getRandomValueFromArray = (arrayName, fieldName) => arrayName[Math.floor(Math.random() * arrayName.length)][fieldName];
+const getRandomValueFromArray = (array, fieldName, ignorWord) => {
+    if(array.length == 1) return array[0][fieldName];
+    
+    return array.filter(val => val[fieldName] != ignorWord)[Math.floor(Math.random() * (array.length - 1))][fieldName];
+}
 
 const shuffle = (array) => {
     let currentIndex = array.length,  randomIndex;
@@ -28,8 +32,8 @@ const tasksBuilder = (dataArray, translate = true) => {
     const newArray = dataArray.map(val => {
         tmp = [
             {text: val[wordField], isTrue: true},
-            {text: getRandomValueFromArray(dataArray, wordField), isTrue: false},
-            {text: getRandomValueFromArray(dataArray, wordField), isTrue: false}
+            {text: getRandomValueFromArray(dataArray, wordField,  val[wordField]), isTrue: false},
+            {text: getRandomValueFromArray(dataArray, wordField,  val[wordField]), isTrue: false}
         ]
         return {word: val[translateField], variants: shuffle(tmp)}
     });

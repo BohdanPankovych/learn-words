@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import TaskBlock from './TaskBlock';
 import ReturnBlock from './ReturnBlock';
 import SQLService from '../../storage/SQLService';
@@ -28,12 +28,13 @@ const styles = StyleSheet.create({
     },
 })
 
-function TaskScreen({task, selectedDictionary, stopTest, setTask, nextTask, setWords, resetReducer, route}) {
+function TaskScreen({task, selectedDictionary, stopTest, setTask, setWords, resetReducer, route}) {
     //TODO: rewrite code logic
     const getWordsByDictionaryName = () =>{
-        SQLService.getWordsList(selectedDictionary, (res) =>{
-            const taskType = route.params.taskType;
-            const words = buildTasks(res, TASK_TYPES_VALUE[taskType]);
+        const taskType = route.params.taskType;
+
+        SQLService.getWordsList(selectedDictionary, (dict) => {    
+            const words = buildTasks(dict, TASK_TYPES_VALUE[taskType]);
             
             //get first task
             setTask(words.pop());
@@ -51,7 +52,7 @@ function TaskScreen({task, selectedDictionary, stopTest, setTask, nextTask, setW
     return (
         <View style={styles.root}>
             <View style={styles.container}>
-                {stopTest ? <ReturnBlock/> : <TaskBlock task={task} nextTask={nextTask}/>}
+                {stopTest ? <ReturnBlock/> : <TaskBlock task={task}/>}
             </View>
         </View>
     )

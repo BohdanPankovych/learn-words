@@ -8,6 +8,10 @@ const styles = StyleSheet.create({
       fontSize: 20,
       fontWeight: 'bold',
     },
+    translate: {
+      fontSize: 20,
+      fontWeight: 'bold',
+    },
     item:{
       borderBottomWidth: 1,
       padding: 20,
@@ -53,7 +57,7 @@ const ListItem = ({firstSection, secondSection, onDelete, isDeleteWord=false}) =
         <View style={styles.item}>
             <View style={styles.content}>
                 <Text style={styles.title}>{firstSection}</Text>
-                <Text style={styles.title}>{secondSection}</Text>
+                <Text style={styles.translate}>{secondSection}</Text>
                 <Pressable style={styles.deleteButton} onPress={handleOpen}>
                   <Text style={styles.textStyle}>Delete</Text>
                 </Pressable>

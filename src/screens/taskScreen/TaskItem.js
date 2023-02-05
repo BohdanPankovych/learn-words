@@ -1,6 +1,9 @@
 import React from 'react'
 import { Text, View, StyleSheet, Pressable } from 'react-native'
+import { useDispatch } from 'react-redux';
 import Colors from '../../data/constants/Colors';
+
+import { nextTask, addCounter } from '../../data/redux/task/taskActions';
 
 const styles = StyleSheet.create({
     item:{
@@ -15,17 +18,19 @@ const styles = StyleSheet.create({
     }
 })
 
-function TaskItem({ wordName, isTrue, onPress }) {
+function TaskItem({ wordName, isTrue }) {
+  const dispatch = useDispatch();
   const [bgColor, setbgColor] = React.useState(Colors.white);
 
   const handlePress = React.useCallback(() =>{
     if(isTrue){
+      dispatch(addCounter());
       setbgColor(Colors.green);
     } else {
       setbgColor(Colors.red);
     }
     setTimeout(() => {
-      onPress();
+      dispatch(nextTask());
       setbgColor(Colors.white);
     }, 600);
   }, [wordName, isTrue]);

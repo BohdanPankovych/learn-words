@@ -10,13 +10,16 @@ const styles = StyleSheet.create({
     },
 })
 
-function TaskBlock({task, nextTask}) {
+function TaskBlock({task}) {
   return (
     <React.Fragment>
         <Text style={styles.title}>{ task?.word }</Text>
-                {task?.variants?.map((val, index)=> (
-                    <TaskItem key={index} wordName={val.text} isTrue={val.isTrue} onPress={nextTask}/>
-                ) )}
+          {task?.variants?.map((val, index)=> (
+              <TaskItem 
+                key={index} 
+                wordName={val.text} 
+                isTrue={val.isTrue} />
+          ) )}
     </React.Fragment>
   )
 }

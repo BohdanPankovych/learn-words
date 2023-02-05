@@ -4,11 +4,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Colors from '../data/constants/Colors';
 import useColorScheme from '../data/hooks/useColorScheme';
 import LessonsPage from '../screens/LessonsPage/LessonsPage';
-import TabTwoScreen from '../screens/TabTwoScreen';
+import StatisticsScreen from '../screens/StatisticsScreen';
 import DictionaryListContainer from '../screens/containers/DictionaryListContainer';
 
 import AddItemContainer from '../components/AddButton/containers/AddItemContainer';
-import Menu from '../components/menu/Menu';
 import DropDown from '../components/DropDown/DropDown';
 
 const BottomTab = createBottomTabNavigator();
@@ -42,7 +41,7 @@ export default function BottomTabNavigator({...params}) {
       />
       <BottomTab.Screen
         name="TabTwo"
-        component={TabTwoScreen}
+        component={StatisticsScreen}
         options={{
           title: 'Statistics',
           tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,

@@ -26,9 +26,7 @@ export default function DictionariesListScreen({ navigation, setDictionaries, de
   );
   
   const getDictionaries = () => {
-    SQLService.getDictionariesList((res) => {
-      setDictionaries(res)
-    })
+    SQLService.getDictionariesList(setDictionaries)
   }
 
   React.useEffect(() => {
