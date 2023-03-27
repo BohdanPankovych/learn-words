@@ -1,3 +1,5 @@
+# Dictionary for learning words
+
 
 To generate apk just run
 
